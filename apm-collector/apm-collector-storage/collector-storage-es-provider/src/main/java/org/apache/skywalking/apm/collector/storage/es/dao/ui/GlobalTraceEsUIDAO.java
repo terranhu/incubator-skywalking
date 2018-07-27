@@ -55,7 +55,7 @@ public class GlobalTraceEsUIDAO extends EsDAO implements IGlobalTraceUIDAO {
         List<String> globalTraceIds = new ArrayList<>();
         SearchHit[] searchHits = searchResponse.getHits().getHits();
         for (SearchHit searchHit : searchHits) {
-            String globalTraceId = (String)searchHit.getSource().get(GlobalTraceTable.TRACE_ID.getName());
+            String globalTraceId = (String)searchHit.getSourceAsMap().get(GlobalTraceTable.TRACE_ID.getName());
             logger.debug("segmentId: {}, global trace id: {}", segmentId, globalTraceId);
             globalTraceIds.add(globalTraceId);
         }
@@ -74,7 +74,7 @@ public class GlobalTraceEsUIDAO extends EsDAO implements IGlobalTraceUIDAO {
         List<String> segmentIds = new ArrayList<>();
         SearchHit[] searchHits = searchResponse.getHits().getHits();
         for (SearchHit searchHit : searchHits) {
-            String segmentId = (String)searchHit.getSource().get(GlobalTraceTable.SEGMENT_ID.getName());
+            String segmentId = (String)searchHit.getSourceAsMap().get(GlobalTraceTable.SEGMENT_ID.getName());
             logger.debug("segmentId: {}, global trace id: {}", segmentId, globalTraceId);
             segmentIds.add(segmentId);
         }

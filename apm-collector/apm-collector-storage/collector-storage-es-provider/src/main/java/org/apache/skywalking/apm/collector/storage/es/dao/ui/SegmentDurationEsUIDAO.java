@@ -100,11 +100,11 @@ public class SegmentDurationEsUIDAO extends EsDAO implements ISegmentDurationUID
         for (SearchHit searchHit : searchResponse.getHits().getHits()) {
             BasicTrace basicTrace = new BasicTrace();
 
-            basicTrace.setSegmentId((String)searchHit.getSource().get(SegmentDurationTable.SEGMENT_ID.getName()));
-            basicTrace.setStart(((Number)searchHit.getSource().get(SegmentDurationTable.START_TIME.getName())).longValue());
-            basicTrace.getOperationName().addAll((List)searchHit.getSource().get(SegmentDurationTable.SERVICE_NAME.getName()));
-            basicTrace.setDuration(((Number)searchHit.getSource().get(SegmentDurationTable.DURATION.getName())).intValue());
-            basicTrace.setError(BooleanUtils.valueToBoolean(((Number)searchHit.getSource().get(SegmentDurationTable.IS_ERROR.getName())).intValue()));
+            basicTrace.setSegmentId((String)searchHit.getSourceAsMap().get(SegmentDurationTable.SEGMENT_ID.getName()));
+            basicTrace.setStart(((Number)searchHit.getSourceAsMap().get(SegmentDurationTable.START_TIME.getName())).longValue());
+            basicTrace.getOperationName().addAll((List)searchHit.getSourceAsMap().get(SegmentDurationTable.SERVICE_NAME.getName()));
+            basicTrace.setDuration(((Number)searchHit.getSourceAsMap().get(SegmentDurationTable.DURATION.getName())).intValue());
+            basicTrace.setError(BooleanUtils.valueToBoolean(((Number)searchHit.getSourceAsMap().get(SegmentDurationTable.IS_ERROR.getName())).intValue()));
             traceBrief.getTraces().add(basicTrace);
         }
 

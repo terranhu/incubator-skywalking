@@ -198,7 +198,7 @@ public class InstanceEsUIDAO extends EsDAO implements IInstanceUIDAO {
         SearchHit[] searchHits = searchResponse.getHits().getHits();
 
         if (searchHits.length > 0) {
-            return ((Number)searchHits[0].getSource().get(InstanceTable.REGISTER_TIME.getName())).longValue();
+            return ((Number)searchHits[0].getSourceAsMap().get(InstanceTable.REGISTER_TIME.getName())).longValue();
         }
 
         return Long.MIN_VALUE;
@@ -218,7 +218,7 @@ public class InstanceEsUIDAO extends EsDAO implements IInstanceUIDAO {
         SearchHit[] searchHits = searchResponse.getHits().getHits();
 
         if (searchHits.length > 0) {
-            return ((Number)searchHits[0].getSource().get(InstanceTable.HEARTBEAT_TIME.getName())).longValue();
+            return ((Number)searchHits[0].getSourceAsMap().get(InstanceTable.HEARTBEAT_TIME.getName())).longValue();
         }
 
         return Long.MAX_VALUE;
@@ -228,9 +228,9 @@ public class InstanceEsUIDAO extends EsDAO implements IInstanceUIDAO {
         List<AppServerInfo> appServerInfos = new LinkedList<>();
         for (SearchHit searchHit : searchHits) {
             AppServerInfo appServerInfo = new AppServerInfo();
-            appServerInfo.setId(((Number)searchHit.getSource().get(InstanceTable.INSTANCE_ID.getName())).intValue());
-            appServerInfo.setApplicationId(((Number)searchHit.getSource().get(InstanceTable.APPLICATION_ID.getName())).intValue());
-            appServerInfo.setOsInfo((String)searchHit.getSource().get(InstanceTable.OS_INFO.getName()));
+            appServerInfo.setId(((Number)searchHit.getSourceAsMap().get(InstanceTable.INSTANCE_ID.getName())).intValue());
+            appServerInfo.setApplicationId(((Number)searchHit.getSourceAsMap().get(InstanceTable.APPLICATION_ID.getName())).intValue());
+            appServerInfo.setOsInfo((String)searchHit.getSourceAsMap().get(InstanceTable.OS_INFO.getName()));
             appServerInfos.add(appServerInfo);
         }
         return appServerInfos;

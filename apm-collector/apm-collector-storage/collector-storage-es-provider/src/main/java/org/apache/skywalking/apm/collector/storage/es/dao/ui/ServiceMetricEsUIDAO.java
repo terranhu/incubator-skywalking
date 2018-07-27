@@ -205,13 +205,13 @@ public class ServiceMetricEsUIDAO extends EsDAO implements IServiceMetricUIDAO {
         Set<Integer> serviceIds = new HashSet<>();
         List<ServiceMetric> serviceMetrics = new LinkedList<>();
         for (SearchHit searchHit : searchHits) {
-            int serviceId = ((Number)searchHit.getSource().get(ServiceMetricTable.SERVICE_ID.getName())).intValue();
+            int serviceId = ((Number)searchHit.getSourceAsMap().get(ServiceMetricTable.SERVICE_ID.getName())).intValue();
             if (!serviceIds.contains(serviceId)) {
                 ServiceMetric serviceMetric = new ServiceMetric();
                 serviceMetric.getService().setId(serviceId);
                 serviceMetric.getService().setApplicationId(serviceId);
-                serviceMetric.setCalls(((Number)searchHit.getSource().get(ServiceMetricTable.TRANSACTION_CALLS.getName())).longValue());
-                serviceMetric.setAvgResponseTime(((Number)searchHit.getSource().get(ServiceMetricTable.TRANSACTION_AVERAGE_DURATION.getName())).intValue());
+                serviceMetric.setCalls(((Number)searchHit.getSourceAsMap().get(ServiceMetricTable.TRANSACTION_CALLS.getName())).longValue());
+                serviceMetric.setAvgResponseTime(((Number)searchHit.getSourceAsMap().get(ServiceMetricTable.TRANSACTION_AVERAGE_DURATION.getName())).intValue());
                 serviceMetrics.add(serviceMetric);
 
                 serviceIds.add(serviceId);

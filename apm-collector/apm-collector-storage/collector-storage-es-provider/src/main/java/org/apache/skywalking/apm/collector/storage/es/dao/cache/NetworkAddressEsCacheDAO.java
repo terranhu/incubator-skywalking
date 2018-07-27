@@ -53,7 +53,7 @@ public class NetworkAddressEsCacheDAO extends EsDAO implements INetworkAddressCa
         SearchResponse searchResponse = searchRequestBuilder.execute().actionGet();
         if (searchResponse.getHits().totalHits > 0) {
             SearchHit searchHit = searchResponse.getHits().iterator().next();
-            return ((Number)searchHit.getSource().get(NetworkAddressTable.ADDRESS_ID.getName())).intValue();
+            return ((Number)searchHit.getSourceAsMap().get(NetworkAddressTable.ADDRESS_ID.getName())).intValue();
         }
         return Const.NONE;
     }

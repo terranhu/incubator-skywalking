@@ -69,15 +69,15 @@ public class ServiceAlarmEsUIDAO extends EsDAO implements IServiceAlarmUIDAO {
         alarm.setTotal((int)searchResponse.getHits().getTotalHits());
         for (SearchHit searchHit : searchHits) {
             AlarmItem alarmItem = new AlarmItem();
-            alarmItem.setId(((Number)searchHit.getSource().get(ServiceAlarmTable.SERVICE_ID.getName())).intValue());
-            alarmItem.setTitle((String)searchHit.getSource().get(ServiceAlarmTable.ALARM_CONTENT.getName()));
-            alarmItem.setContent((String)searchHit.getSource().get(ServiceAlarmTable.ALARM_CONTENT.getName()));
+            alarmItem.setId(((Number)searchHit.getSourceAsMap().get(ServiceAlarmTable.SERVICE_ID.getName())).intValue());
+            alarmItem.setTitle((String)searchHit.getSourceAsMap().get(ServiceAlarmTable.ALARM_CONTENT.getName()));
+            alarmItem.setContent((String)searchHit.getSourceAsMap().get(ServiceAlarmTable.ALARM_CONTENT.getName()));
 
-            long lastTimeBucket = ((Number)searchHit.getSource().get(ServiceAlarmTable.LAST_TIME_BUCKET.getName())).longValue();
+            long lastTimeBucket = ((Number)searchHit.getSourceAsMap().get(ServiceAlarmTable.LAST_TIME_BUCKET.getName())).longValue();
             alarmItem.setStartTime(TimeBucketUtils.INSTANCE.formatMinuteTimeBucket(lastTimeBucket));
             alarmItem.setAlarmType(AlarmType.SERVICE);
 
-            int alarmType = ((Number)searchHit.getSource().get(ServiceAlarmTable.ALARM_TYPE.getName())).intValue();
+            int alarmType = ((Number)searchHit.getSourceAsMap().get(ServiceAlarmTable.ALARM_TYPE.getName())).intValue();
             if (org.apache.skywalking.apm.collector.storage.table.alarm.AlarmType.SLOW_RTT.getValue() == alarmType) {
                 alarmItem.setCauseType(CauseType.SLOW_RESPONSE);
             } else if (org.apache.skywalking.apm.collector.storage.table.alarm.AlarmType.ERROR_RATE.getValue() == alarmType) {

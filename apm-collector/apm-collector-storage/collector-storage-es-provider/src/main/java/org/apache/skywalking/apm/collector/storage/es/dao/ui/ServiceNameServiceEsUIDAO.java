@@ -81,9 +81,9 @@ public class ServiceNameServiceEsUIDAO extends EsDAO implements IServiceNameServ
         List<ServiceInfo> serviceInfos = new LinkedList<>();
         for (SearchHit searchHit : searchHits) {
             ServiceInfo serviceInfo = new ServiceInfo();
-            serviceInfo.setId(((Number)searchHit.getSource().get(ServiceNameTable.SERVICE_ID.getName())).intValue());
-            serviceInfo.setName((String)searchHit.getSource().get(ServiceNameTable.SERVICE_NAME.getName()));
-            serviceInfo.setApplicationId(((Number)searchHit.getSource().get(ServiceNameTable.APPLICATION_ID.getName())).intValue());
+            serviceInfo.setId(((Number)searchHit.getSourceAsMap().get(ServiceNameTable.SERVICE_ID.getName())).intValue());
+            serviceInfo.setName((String)searchHit.getSourceAsMap().get(ServiceNameTable.SERVICE_NAME.getName()));
+            serviceInfo.setApplicationId(((Number)searchHit.getSourceAsMap().get(ServiceNameTable.APPLICATION_ID.getName())).intValue());
             serviceInfos.add(serviceInfo);
         }
         return serviceInfos;
