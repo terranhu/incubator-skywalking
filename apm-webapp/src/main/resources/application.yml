@@ -33,3 +33,7 @@ security:
   user:
     admin:
       password: admin
+
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
