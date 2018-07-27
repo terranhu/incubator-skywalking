@@ -70,7 +70,7 @@ ui:
     contextPath: /
 storage:
   elasticsearch:
-    clusterName: YJH_NB
+    clusterName: YJH-NB
     clusterTransportSniffer: true
     clusterNodes: 10.1.88.160:9300,10.1.88.161:9300
     indexShardsNumber: 3
